@@ -1,0 +1,77 @@
+digraph matrizDispersa
+{
+	nodesep = 0.5;
+	node[shape=box, color=turquoise4, fillcolor=green,style=filled ];
+	edge[color=tomato];
+	rankdir=UD;
+
+//-----------------Recorriendo las cabeceras de dias-----
+	MATRIZ -> ndC1;
+	ndC1 [label = "Team 1"];
+	ndC3 [label = "Team 3"];
+	ndC1 -> ndC3->ndC1[constraint=false];
+	ndC4 [label = "Team 4"];
+	ndC3 -> ndC4->ndC3;
+	ndC5 [label = "Team 5"];
+	ndC4 -> ndC5->ndC4[constraint=false];
+
+	{rank = same; MATRIZ; ndC1; ndC3; ndC4; ndC5};
+
+//---------------Recorriendo fila1-------------	
+
+	MATRIZ -> ndF1;
+	ndF1 [label = "Proyecto\nUNO"];
+
+	ndF1 -> nd11;
+	nd11 [label = "Tareas\nUNO - 1"];
+	nd11 -> nd14->nd11[constraint=false];
+	nd14 [label = "Tareas\nUNO - 4"];
+	nd14 -> nd15->nd14[constraint=false];
+	nd15 [label = "Tareas\nUNO - 5"];
+
+	{rank = same; ndF1; nd11; nd14; nd15};
+
+
+//----------recorriendo fila2-------
+	ndF1 -> ndF2->ndF1 [constraint=true];
+	ndF2 [label = "Proyecto\nDOS"];
+	ndF2 -> nd23[constraint=false];
+	nd23 [label = "Tareas\nDOS - 3"];
+	nd23 -> nd25->nd23[constraint=false];
+	nd25 [label = "Tareas\nDOS - 5"];
+
+	{rank = same; ndF2; nd23; nd25};
+
+//-----------recorriendo fila3---------------
+
+
+	ndF2 -> ndF3->ndF2 [constraint=true];
+	ndF3 [label = "Proyecto\nTRES"];
+
+	ndF3 -> nd31[constraint=false];
+	nd31 [label = "Tarea\nTRES - 1"];
+	nd31 -> nd33->nd31;
+	nd33 [label = "Tarea\nTRES - 3"];
+
+	{rank = same; ndF3; nd31; nd33};
+
+
+
+	//se usan crean los punteros de las columnas
+	ndC1 -> nd11 [constraint=true];
+	nd11 -> nd31->nd11[constraint=true];
+
+
+	ndC3 -> nd23 [constraint=true];
+	nd23 -> nd33->nd23[constraint=true];
+
+	ndC4 -> nd14 [constraint=true];
+
+	
+	ndC5 -> nd15 [constraint=true];
+	nd15 -> nd25->nd15[constraint=true];
+
+
+	
+	
+}
